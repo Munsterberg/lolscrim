@@ -10,13 +10,16 @@ import logger from './util/logger';
 import db from './db';
 import {auth as authConfig} from './config';
 
-import sampleRouter from './api/index';
-import userRouter from './api/user';
+import homeRouter from './routes/index';
+import userRouter from './routes/user';
 
 // Setup auth
 require('./auth');
 
 const app = express();
+
+app.set('views', path.join(__dirname, '/views'));
+app.set('view engine', 'pug');
 
 app.use(morgan('combined', {stream: logger.stream}));
 app.use(bodyParser.json());
@@ -37,12 +40,8 @@ db.sequelize.sync().then(() => {
   logger.info('Database synced!');
 });
 
-app.use('/api', sampleRouter);
-app.use('/api', userRouter);
-
-app.get('/', (req, res) => {
-  res.send('Hola');
-});
+app.use(homeRouter);
+app.use(userRouter);
 
 // Error handling for app
 app.use((err, req, res, next) => {
