@@ -9,9 +9,9 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-  User.findById(id, (err, user) => {
-    done(err, user);
-  });
+  User.findOne({where: {id}}).then((user) => {
+    done(user);
+  }).catch(err => done(err));
 });
 
 passport.use(new LocalStrategy((username, password, done) => {
