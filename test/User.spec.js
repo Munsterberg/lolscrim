@@ -69,6 +69,46 @@ describe('Register spec', () => {
     });
   });
 
+  describe('POST register with too short password', () => {
+    it('should fail for too short of password', (done) => {
+      request(app)
+        .post('/register')
+        .send({
+          username: 'username3',
+          password: '123',
+          passwordRepeat: '123',
+        })
+        .end((err, res) => {
+          const actualBody = res.text;
+          const expectedBody = '{"error":"Passwords must be between 4-18 characters long"}';
+
+          expect(res.statusCode).to.equal(400);
+          expect(actualBody).to.equal(expectedBody);
+          done();
+        });
+    });
+  });
+
+  describe('POST register with long password', () => {
+    it('should fail for too long of password', (done) => {
+      request(app)
+        .post('/register')
+        .send({
+          username: 'username3',
+          password: '1234567891234567891',
+          passwordRepeat: '1234567891234567891',
+        })
+        .end((err, res) => {
+          const actualBody = res.text;
+          const expectedBody = '{"error":"Passwords must be between 4-18 characters long"}';
+
+          expect(res.statusCode).to.equal(400);
+          expect(actualBody).to.equal(expectedBody);
+          done();
+        });
+    });
+  });
+
   describe('render register form to view', () => {
     it('should render form along with view', (done) => {
       request(app)
