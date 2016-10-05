@@ -40,7 +40,7 @@ describe('Register spec', () => {
         })
         .end((err, res) => {
           const actualBody = res.text;
-          const expectedBody = '{"error":"User already exists"}';
+          const expectedBody = '{"error":"Something went wrong!"}';
 
           expect(res.statusCode).to.equal(400);
           expect(actualBody).to.equal(expectedBody);
@@ -64,6 +64,21 @@ describe('Register spec', () => {
 
           expect(res.statusCode).to.equal(400);
           expect(actualBody).to.equal(expectedBody);
+          done();
+        });
+    });
+  });
+
+  describe('render register form to view', () => {
+    it('should render form along with view', (done) => {
+      request(app)
+        .get('/register')
+        .end((err, res) => {
+          const actualBody = res.text;
+
+          expect(actualBody).to.contain('<h1>Register Page</h1>');
+          expect(res.statusCode).to.equal(200);
+          expect(actualBody).to.contain('<form method="post" action="/register">');
           done();
         });
     });
@@ -104,6 +119,21 @@ describe('Login spec', () => {
 
           expect(res.statusCode).to.equal(401);
           expect(actualBody).to.equal(expectedBody);
+          done();
+        });
+    });
+  });
+
+  describe('render login page', () => {
+    it('should render login form in view', (done) => {
+      request(app)
+        .get('/login')
+        .end((err, res) => {
+          const actualBody = res.text;
+
+          expect(res.statusCode).to.equal(200);
+          expect(actualBody).to.contain('<h1>Login Page</h1>');
+          expect(actualBody).to.contain('<form method="post" action="/login">');
           done();
         });
     });
