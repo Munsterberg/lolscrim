@@ -16,7 +16,7 @@ describe('Register spec', () => {
   describe('POST register route', () => {
     it('should register a user to the database', (done) => {
       request(app)
-        .post('/api/register')
+        .post('/register')
         .send({
           username: 'username1',
           password: 'password1',
@@ -32,7 +32,7 @@ describe('Register spec', () => {
   describe('POST register with same username', () => {
     it('should fail to register with same username', (done) => {
       request(app)
-        .post('/api/register')
+        .post('/register')
         .send({
           username: 'username1',
           password: 'password1',
@@ -52,7 +52,7 @@ describe('Register spec', () => {
   describe('POST register with mismatching passwords', () => {
     it('should fail for mismatching passwords', (done) => {
       request(app)
-        .post('/api/register')
+        .post('/register')
         .send({
           username: 'username2',
           password: 'password2',
@@ -74,7 +74,7 @@ describe('Login spec', () => {
   describe('POST login with username and password', () => {
     it('should login successfully', (done) => {
       request(app)
-        .post('/api/login')
+        .post('/login')
         .send({
           username: 'username1',
           password: 'password1'
@@ -93,7 +93,7 @@ describe('Login spec', () => {
   describe('POST login with wrong password', () => {
     it('should fail logging in with wrong password', (done) => {
       request(app)
-        .post('/api/login')
+        .post('/login')
         .send({
           username: 'username1',
           password: 'password2'
