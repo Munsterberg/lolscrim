@@ -14,6 +14,10 @@ userRouter.post('/login', passport.authenticate('local'), (req, res) => {
   res.send('Login successful');
 });
 
+userRouter.get('/register', (req, res) => {
+  res.render('user/register', {title: 'Register'});
+});
+
 userRouter.post('/register', (req, res) => {
   const {username, password, passwordRepeat} = req.body;
 
