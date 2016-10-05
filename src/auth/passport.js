@@ -15,7 +15,7 @@ passport.deserializeUser((id, done) => {
 });
 
 passport.use(new LocalStrategy((username, password, done) => {
-  User.findOne({where: {username}}).then((user) => {
+  User.findOne({where: {username: username.toLowerCase()}}).then((user) => {
     if (!user) {
       return done(null, false);
     }

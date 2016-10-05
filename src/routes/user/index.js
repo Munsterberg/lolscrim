@@ -27,7 +27,7 @@ userRouter.post('/register', (req, res) => {
   }
 
   const hashedPassword = hash(password);
-  const newUser = {username, password: hashedPassword};
+  const newUser = {username: username.toLowerCase(), password: hashedPassword};
 
   User
     .build(newUser)
