@@ -36,7 +36,7 @@ userRouter.post('/register', (req, res) => {
       res.status(201).send();
     }).catch((e) => {
       if (e) {
-        res.status(400).send({error: 'User already exists'});
+        res.status(400).send({error: 'Something went wrong!'});
       }
     });
 });
