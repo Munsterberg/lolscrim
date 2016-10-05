@@ -26,6 +26,11 @@ userRouter.post('/register', (req, res) => {
     return;
   }
 
+  if (password.length < 4 || password.length > 18) {
+    res.status(400).send({error: 'Passwords must be between 4-18 characters long'});
+    return;
+  }
+
   const hashedPassword = hash(password);
   const newUser = {username: username.toLowerCase(), password: hashedPassword};
 
