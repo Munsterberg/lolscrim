@@ -1,7 +1,7 @@
 extends ../layout
 
 block content
-  h1 Login Page
+  h1 Register Page
   .col-md-6
     form(method='post' action='/register')
       .form-group
@@ -13,4 +13,4 @@ block content
       .form-group
         label(for='passwordRepeat') Enter password again
         input#passwordRepeat.form-control(type='password', placeholder='Password', name='passwordRepeat')
-      button.btn.btn-default(type='submit') Login
+      button.btn.btn-default(type='submit') Create Account
