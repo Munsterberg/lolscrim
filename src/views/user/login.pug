@@ -1,0 +1,13 @@
+extends ../layout
+
+block content
+  h1 Login Page
+  .col-md-6
+    form(method='post' action='/login')
+      .form-group
+        label(for='username') Username
+        input#username.form-control(type='text', placeholder='Username', name='username')
+      .form-group
+        label(for='password') Password
+        input#password.form-control(type='password', placeholder='Password', name='password')
+      button.btn.btn-default(type='submit') Login

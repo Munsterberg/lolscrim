@@ -6,6 +6,10 @@ import hash from '../../util/hash';
 
 const userRouter = Router(); // eslint-disable-line
 
+userRouter.get('/login', (req, res) => {
+  res.render('user/login', {title: 'Login'});
+});
+
 userRouter.post('/login', passport.authenticate('local'), (req, res) => {
   res.send('Login successful');
 });
