@@ -12,7 +12,7 @@ import {auth as authConfig} from './config';
 
 import homeRouter from './routes/index';
 import userRouter from './routes/user';
-import scrimRouter from './routes/scrim';
+import teamRouter from './routes/team';
 
 // Setup auth
 require('./auth');
@@ -43,7 +43,7 @@ db.sequelize.sync().then(() => {
 
 app.use(homeRouter);
 app.use(userRouter);
-app.use(scrimRouter);
+app.use(teamRouter);
 
 // Error handling for app
 app.use((err, req, res, next) => {
