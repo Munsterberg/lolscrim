@@ -35,6 +35,11 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+// Add user object to locals
+app.use((req, res, next) => {
+  res.locals.user = req.user; // eslint-disable-line
+  next();
+});
 
 // Sync database
 db.sequelize.sync().then(() => {
