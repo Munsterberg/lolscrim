@@ -11,3 +11,11 @@ nav.navbar.navbar-default
       .nav.navbar-nav.pull-right
         li
           a(href='/') Home
+        if user
+          li
+            a(href='/create-team') Create Team
+        else
+          li
+            a(href='/login') Login
+          li
+            a(href='/register') Register

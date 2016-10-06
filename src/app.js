@@ -12,7 +12,7 @@ import {auth as authConfig} from './config';
 
 import homeRouter from './routes/index';
 import userRouter from './routes/user';
-import scrimRouter from './routes/scrim';
+import teamRouter from './routes/team';
 
 // Setup auth
 require('./auth');
@@ -35,6 +35,11 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+// Add user object to locals
+app.use((req, res, next) => {
+  res.locals.user = req.user; // eslint-disable-line
+  next();
+});
 
 // Sync database
 db.sequelize.sync().then(() => {
@@ -43,7 +48,7 @@ db.sequelize.sync().then(() => {
 
 app.use(homeRouter);
 app.use(userRouter);
-app.use(scrimRouter);
+app.use(teamRouter);
 
 // Error handling for app
 app.use((err, req, res, next) => {
