@@ -10,39 +10,45 @@ import logger from './util/logger';
 import db from './db';
 import {auth as authConfig} from './config';
 
-import sampleRouter from './api/index';
-import userRouter from './api/user';
+import homeRouter from './routes/index';
+import userRouter from './routes/user';
+import teamRouter from './routes/team';
 
 // Setup auth
 require('./auth');
 
 const app = express();
 
+app.set('views', path.join(__dirname, '/views'));
+app.set('view engine', 'pug');
+
+app.use(express.static(path.join(__dirname, '/../public')));
 app.use(morgan('combined', {stream: logger.stream}));
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(express.static(path.join(__dirname, '/../public')));
-app.use(cookieParser());
 app.use(session({
   secret: authConfig.sessionSecret,
   resave: false,
   saveUninitialized: true,
-  cookie: {secure: true},
+  cookie: {},
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+// Add user object to locals
+app.use((req, res, next) => {
+  res.locals.user = req.user; // eslint-disable-line
+  next();
+});
 
 // Sync database
 db.sequelize.sync().then(() => {
   logger.info('Database synced!');
 });
 
-app.use('/api', sampleRouter);
-app.use('/api', userRouter);
-
-app.get('/', (req, res) => {
-  res.send('Hola');
-});
+app.use(homeRouter);
+app.use(userRouter);
+app.use(teamRouter);
 
 // Error handling for app
 app.use((err, req, res, next) => {

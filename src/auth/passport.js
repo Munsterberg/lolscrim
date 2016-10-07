@@ -9,13 +9,13 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-  User.findById(id, (err, user) => {
-    done(err, user);
-  });
+  User.findById(id).then((user) => {
+    done(null, user);
+  }).catch(err => done(err, null));
 });
 
 passport.use(new LocalStrategy((username, password, done) => {
-  User.findOne({where: {username}}).then((user) => {
+  User.findOne({where: {username: username.toLowerCase()}}).then((user) => {
     if (!user) {
       return done(null, false);
     }

@@ -8,19 +8,20 @@ describe('GET 404 on no URL', () => {
   it('should return a 404', (done) => {
     request(app)
       .get('/NoUrlHere')
-      .expect(404)
-      .expect('Content-Type', 'text/html; charset=utf-8', done)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(404);
+        done();
+      });
   });
 });
 
 describe('GET /', () => {
-  it('should return Hola', (done) => {
+  it('should return the index view', (done) => {
     request(app)
       .get('/')
-      .expect(200)
-      .expect('Content-Type', 'text/html; charset=utf-8')
       .end((err, res) => {
-        expect(res.text).to.equal('Hola');
+        expect(res.statusCode).to.equal(200);
+        expect(res.text).to.contain('<h1>Index Page</h1>');
         done();
       });
   });
