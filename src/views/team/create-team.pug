@@ -7,16 +7,15 @@ block content
       .form-group
         label(for='teamName') Team name
         input#teamName.form-control(type='text', placeholder='TSM', name='teamName')
-      .form-group
-        label(for='memberTwo') Member 2
-        input#memberTwo.form-control(type='text', placeholder='Sven', name='memberTwo')
-      .form-group
-        label(for='memberThree') Member 3
-        input#memberThree.form-control(type='text', placeholder='Hauntzer', name='memberThree')
-      .form-group
-        label(for='memberFour') Member 4
-        input#memberFour.form-control(type='text', placeholder='Biofrost', name='memberFour')
-      .form-group
-        label(for='memberFive') Member 5
-        input#memberFive.form-control(type='text', placeholder='Double', name='memberFive')
+      label.radio-inline
+        input(type='radio', name='region', value='na')
+        | NA
+      label.radio-inline
+        input(type='radio', name='region', value='euw')
+        | EUW
+      label.radio-inline
+        input(type='radio', name='region', value='br')
+        | BR
+      br
+      br
       button.btn.btn-default(type='submit') Create Team
