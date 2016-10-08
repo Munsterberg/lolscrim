@@ -29,7 +29,7 @@ teamRouter.post('/create-team', (req, res) => {
 
 teamRouter.get('/team/:id', (req, res) => {
   Team.findById(req.params.id).then((team) => {
-    res.send(team);
+    res.render('team/team', {team, title: team.teamName});
   }).catch((e) => {
     if (e) {
       res.status(400).send(e);
