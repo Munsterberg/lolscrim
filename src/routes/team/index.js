@@ -12,10 +12,7 @@ teamRouter.post('/create-team', (req, res) => {
   const newTeam = {
     teamName: req.body.teamName,
     teamCaptain: req.user.username,
-    memberTwo: req.body.memberTwo,
-    memberThree: req.body.memberThree,
-    memberFour: req.body.memberFour,
-    memberFive: req.body.memberFive,
+    teamRegion: req.body.region,
   };
 
   Team

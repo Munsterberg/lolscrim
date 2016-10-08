@@ -6,8 +6,11 @@ const Team = db.sequelize.define('team', {
     type: db.Sequelize.STRING,
     unique: true,
     validate: {
-      len: [4, 16],
+      len: [3, 16],
     },
+  },
+  teamRegion: {
+    type: db.Sequelize.STRING,
   },
   teamCaptain: {
     type: db.Sequelize.STRING,
@@ -40,7 +43,5 @@ const Team = db.sequelize.define('team', {
     },
   },
 });
-
-Team.hasMany(User, {as: 'Players'});
 
 export default Team;
