@@ -27,4 +27,14 @@ teamRouter.post('/create-team', (req, res) => {
     });
 });
 
+teamRouter.get('/team/:id', (req, res) => {
+  Team.findById(req.params.id).then((team) => {
+    res.send(team);
+  }).catch((e) => {
+    if (e) {
+      res.status(400).send(e);
+    }
+  });
+});
+
 export default teamRouter;
