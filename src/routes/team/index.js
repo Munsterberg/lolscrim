@@ -36,7 +36,17 @@ teamRouter.post('/create-team', isLoggedIn, (req, res) => {
 
 teamRouter.get('/team/:id', (req, res) => {
   Team.findById(req.params.id).then((team) => {
-    res.render('team/team', {team, title: team.teamName});
+    res.render('team/show', {team, title: team.teamName});
+  }).catch((e) => {
+    if (e) {
+      res.status(400).send(e);
+    }
+  });
+});
+
+teamRouter.get('/team/:id/edit', (req, res) => {
+  Team.findById(req.params.id).then((team) => {
+    res.render('team/edit', {team, title: team.teamName});
   }).catch((e) => {
     if (e) {
       res.status(400).send(e);
