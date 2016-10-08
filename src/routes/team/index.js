@@ -4,11 +4,18 @@ import Team from '../../models/team';
 
 const teamRouter = Router(); // eslint-disable-line
 
-teamRouter.get('/create-team', (req, res) => {
+function isLoggedIn(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect('/login');
+}
+
+teamRouter.get('/create-team', isLoggedIn, (req, res) => {
   res.render('team/create-team', {title: 'Create Team'});
 });
 
-teamRouter.post('/create-team', (req, res) => {
+teamRouter.post('/create-team', isLoggedIn, (req, res) => {
   const newTeam = {
     teamName: req.body.teamName,
     teamCaptain: req.user.username,
