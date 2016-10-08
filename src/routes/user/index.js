@@ -46,4 +46,9 @@ userRouter.post('/register', (req, res) => {
     });
 });
 
+userRouter.get('/logout', (req, res) => {
+  req.logout();
+  res.redirect('/');
+});
+
 export default userRouter;
