@@ -11,9 +11,6 @@ const User = db.sequelize.define('user', {
   password: {
     type: db.Sequelize.STRING,
   },
-  registrationDate: {
-    type: db.Sequelize.DATE,
-  },
 });
 
 export default User;
