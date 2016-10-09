@@ -7,7 +7,7 @@ import cookieParser from 'cookie-parser';
 import session from 'express-session';
 
 import logger from './util/logger';
-import db from './db';
+import models from './models';
 import {auth as authConfig} from './config';
 
 import homeRouter from './routes/index';
@@ -42,7 +42,7 @@ app.use((req, res, next) => {
 });
 
 // Sync database
-db.sequelize.sync().then(() => {
+models.sequelize.sync({force: true}).then(() => {
   logger.info('Database synced!');
 });
 

@@ -1,7 +1,7 @@
 import {Router} from 'express';
 import passport from 'passport';
 
-import User from '../../models/user';
+import models from '../../models';
 import hash from '../../util/hash';
 
 const userRouter = Router(); // eslint-disable-line
@@ -34,14 +34,13 @@ userRouter.post('/register', (req, res) => {
   const hashedPassword = hash(password);
   const newUser = {username: username.toLowerCase(), password: hashedPassword};
 
-  User
-    .build(newUser)
-    .save()
+  models.user
+    .create(newUser)
     .then(() => {
       res.status(201).send();
     }).catch((e) => {
       if (e) {
-        res.status(400).send({error: 'Something went wrong!'});
+        res.status(400).send(e);
       }
     });
 });
