@@ -50,4 +50,14 @@ userRouter.get('/logout', (req, res) => {
   res.redirect('/');
 });
 
+userRouter.get('/:id', (req, res) => {
+  models.user.findById(req.params.id).then((user) => {
+    res.render('user/show', {profile: user});
+  }).catch((e) => {
+    if (e) {
+      res.status(400).send(e);
+    }
+  });
+});
+
 export default userRouter;
