@@ -42,7 +42,7 @@ app.use((req, res, next) => {
 });
 
 // Sync database
-models.sequelize.sync({force: true}).then(() => {
+models.sequelize.sync().then(() => {
   logger.info('Database synced!');
 });
 

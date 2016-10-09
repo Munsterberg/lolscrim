@@ -1,10 +1,10 @@
 import {Router} from 'express';
 
-import Team from '../../models/team';
+import models from '../../models';
 
 const teamRouter = Router(); // eslint-disable-line
 
-function isLoggedIn(req, res, next) {
+function isLoggedIn(req, res, next) { // eslint-disable-line
   if (req.isAuthenticated()) {
     return next();
   }
@@ -22,11 +22,14 @@ teamRouter.post('/create-team', isLoggedIn, (req, res) => {
     teamRegion: req.body.region,
   };
 
-  Team
-    .build(newTeam)
-    .save()
-    .then(() => {
+  models.team
+    .create(newTeam)
+    .then((team) => {
       res.status(201).send();
+      models.user.findById(req.user.id)
+      .then((user) => {
+        user.update({teamId: team.id});
+      });
     }).catch((e) => {
       if (e) {
         res.status(400).send(e);
@@ -35,7 +38,7 @@ teamRouter.post('/create-team', isLoggedIn, (req, res) => {
 });
 
 teamRouter.get('/team/:id', (req, res) => {
-  Team.findById(req.params.id).then((team) => {
+  models.team.findById(req.params.id).then((team) => {
     res.render('team/show', {team, title: team.teamName});
   }).catch((e) => {
     if (e) {
@@ -45,7 +48,7 @@ teamRouter.get('/team/:id', (req, res) => {
 });
 
 teamRouter.get('/team/:id/edit', (req, res) => {
-  Team.findById(req.params.id).then((team) => {
+  models.team.findById(req.params.id).then((team) => {
     res.render('team/edit', {team, title: team.teamName});
   }).catch((e) => {
     if (e) {
