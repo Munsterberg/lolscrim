@@ -21,10 +21,10 @@ before((done) => {
 });
 
 describe('Team spec while not authenticated', () => {
-  describe('GET /create-team while not authenticated', () => {
+  describe('GET /team/new while not authenticated', () => {
     it('should redirect to /login', (done) => {
       request(app)
-        .get('/create-team')
+        .get('/team/new')
         .end((err, res) => {
           const actualBody = res.text;
 
@@ -34,9 +34,9 @@ describe('Team spec while not authenticated', () => {
         });
     });
   });
-  describe('POST /create-team while not authenticated', () => {
+  describe('POST /team/new while not authenticated', () => {
     it('should not be able to post a team', (done) => {
-      testSession.post('/create-team')
+      testSession.post('/team/new')
         .send({
           teamName: 'Test Team',
           teamCaptain: 'Any',
@@ -62,9 +62,9 @@ describe('Team spec while authenticated', () => {
       .send({username: 'teamuser1', password: 'password1'})
       .end(done)
   });
-  describe('GET /create-team while authenticated', () => {
+  describe('GET /team/new while authenticated', () => {
     it('should render the view', (done) => {
-      testSession.get('/create-team')
+      testSession.get('/team/new')
         .end((err, res) => {
           const actualBody = res.text;
 
@@ -74,9 +74,9 @@ describe('Team spec while authenticated', () => {
         });
     });
   });
-  describe('POST /create-team while authenticated', () => {
+  describe('POST /team/new while authenticated', () => {
     it('should post a team to the database', (done) => {
-      testSession.post('/create-team')
+      testSession.post('/team/new')
         .send({
           teamName: 'Test Team',
           teamCaptain: 'Any',

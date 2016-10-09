@@ -11,11 +11,11 @@ function isLoggedIn(req, res, next) { // eslint-disable-line
   res.redirect('/login');
 }
 
-teamRouter.get('/create-team', isLoggedIn, (req, res) => {
-  res.render('team/create-team', {title: 'Create Team'});
+teamRouter.get('/team/new', isLoggedIn, (req, res) => {
+  res.render('team/new', {title: 'Create Team'});
 });
 
-teamRouter.post('/create-team', isLoggedIn, (req, res) => {
+teamRouter.post('/team/new', isLoggedIn, (req, res) => {
   const newTeam = {
     teamName: req.body.teamName,
     teamCaptain: req.user.username,

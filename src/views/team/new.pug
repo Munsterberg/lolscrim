@@ -3,7 +3,7 @@ extends ../layout
 block content
   h1 Create Team
   .col-md-6
-    form(method='post' action='/create-team')
+    form(method='post' action='/team/new')
       .form-group
         label(for='teamName') Team name
         input#teamName.form-control(type='text', placeholder='TSM', name='teamName')
