@@ -57,4 +57,14 @@ teamRouter.get('/team/:id/edit', (req, res) => {
   });
 });
 
+teamRouter.get('/team/:id/invite', (req, res) => {
+  models.team.findById(req.params.id).then((team) => {
+    res.render('team/invite', {team, title: team.teamName});
+  }).catch((e) => {
+    if (e) {
+      res.status(400).send(e);
+    }
+  });
+});
+
 export default teamRouter;
