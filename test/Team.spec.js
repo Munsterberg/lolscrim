@@ -34,29 +34,58 @@ describe('Team spec while not authenticated', () => {
         });
     });
   });
-
-  describe('Team spec while authenticated', () => {
-    it('should register test user', (done) => {
-      testSession.post('/register')
-        .send({username: 'teamuser1', password: 'password1', passwordRepeat: 'password1'})
-        .end(done)
+  describe('POST /create-team while not authenticated', () => {
+    it('should not be able to post a team', (done) => {
+      testSession.post('/create-team')
+        .send({
+          teamName: 'Test Team',
+          teamCaptain: 'Any',
+          teamRegion: 'na',
+        })
+        .end((err, res) => {
+          expect(res.statusCode).to.equal(302);
+          expect(res.text).to.contain('Redirecting to /login');
+          done();
+        });
     });
-    it('should login to test user', (done) => {
-      testSession.post('/login')
-        .send({username: 'teamuser1', password: 'password1'})
-        .end(done)
-    });
-    describe('GET /create-team while authenticated', () => {
-      it('should render the view', (done) => {
-        testSession.get('/create-team')
-          .end((err, res) => {
-            const actualBody = res.text;
+  });
+});
 
-            expect(res.statusCode).to.equal(200);
-            expect(actualBody).to.contain('<h1>Create Team</h1>');
-            done();
-          });
-      });
+describe('Team spec while authenticated', () => {
+  it('should register test user', (done) => {
+    testSession.post('/register')
+      .send({username: 'teamuser1', password: 'password1', passwordRepeat: 'password1'})
+      .end(done)
+  });
+  it('should login to test user', (done) => {
+    testSession.post('/login')
+      .send({username: 'teamuser1', password: 'password1'})
+      .end(done)
+  });
+  describe('GET /create-team while authenticated', () => {
+    it('should render the view', (done) => {
+      testSession.get('/create-team')
+        .end((err, res) => {
+          const actualBody = res.text;
+
+          expect(res.statusCode).to.equal(200);
+          expect(actualBody).to.contain('<h1>Create Team</h1>');
+          done();
+        });
+    });
+  });
+  describe('POST /create-team while authenticated', () => {
+    it('should post a team to the database', (done) => {
+      testSession.post('/create-team')
+        .send({
+          teamName: 'Test Team',
+          teamCaptain: 'Any',
+          teamRegion: 'na',
+        })
+        .end((err, res) => {
+          expect(res.statusCode).to.equal(201);
+          done();
+        });
     });
   });
 });
