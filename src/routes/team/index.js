@@ -59,8 +59,8 @@ teamRouter.get('/team/:id/edit', (req, res) => {
 
 teamRouter.get('/team/:id/invite', (req, res) => {
   if (req.query.playerSearch) {
-    models.user.find({where: {username: req.query.playerSearch}}).then((user) => {
-      res.redirect(`/${user.id}`);
+    models.user.find({where: {username: req.query.playerSearch.toLowerCase()}}).then((user) => {
+      res.redirect(`/user/${user.id}`);
     }).catch((e) => {
       if (e) {
         res.send(e);

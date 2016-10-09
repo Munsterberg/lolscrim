@@ -13,9 +13,9 @@ nav.navbar.navbar-default
           a(href='/') Home
         if user
           li
-            a(href='/create-team') Create Team
+            a(href='/team/new') Create Team
           li
-            a(href='/' + user.id) Profile
+            a(href='/user/' + user.id) Profile
           li
             a(href='/logout') Logout
         else
