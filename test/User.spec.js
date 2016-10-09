@@ -4,10 +4,10 @@ import request from 'supertest';
 import {expect} from 'chai';
 
 import app from '../src/app';
-import User from '../src/models/user';
+import models from '../src/models';
 
 after((done) => {
-  User.destroy({where: {}}).then(() => {
+  models.user.destroy({where: {}}).then(() => {
     done();
   });
 });

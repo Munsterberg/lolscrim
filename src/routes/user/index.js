@@ -40,7 +40,7 @@ userRouter.post('/register', (req, res) => {
       res.status(201).send();
     }).catch((e) => {
       if (e) {
-        res.status(400).send(e);
+        res.status(400).send({error: 'Something went wrong!'});
       }
     });
 });
@@ -50,7 +50,7 @@ userRouter.get('/logout', (req, res) => {
   res.redirect('/');
 });
 
-userRouter.get('/:id', (req, res) => {
+userRouter.get('/user/:id', (req, res) => {
   models.user.findById(req.params.id).then((user) => {
     res.render('user/show', {profile: user});
   }).catch((e) => {
