@@ -11,6 +11,22 @@ function isLoggedIn(req, res, next) { // eslint-disable-line
   res.redirect('/login');
 }
 
+function checkTeamOwner(req, res, next) {
+  if (req.isAuthenticated()) {
+    models.team.findById(req.params.id).then((team) => {
+      if (res.locals.user.username === team.teamCaptain) {
+        next();
+      } else {
+        res.status(401).send({error: 'You are not the captain of this team!'});
+      }
+    }).catch((e) => {
+      if (e) {
+        res.send(e);
+      }
+    });
+  }
+}
+
 teamRouter.get('/team/new', isLoggedIn, (req, res) => {
   res.render('team/new', {title: 'Create Team'});
 });
@@ -47,7 +63,7 @@ teamRouter.get('/team/:id', (req, res) => {
   });
 });
 
-teamRouter.get('/team/:id/edit', (req, res) => {
+teamRouter.get('/team/:id/edit', checkTeamOwner, (req, res) => {
   models.team.findById(req.params.id).then((team) => {
     res.render('team/edit', {team, title: team.teamName});
   }).catch((e) => {
@@ -57,7 +73,7 @@ teamRouter.get('/team/:id/edit', (req, res) => {
   });
 });
 
-teamRouter.post('/team/:id/edit', (req, res) => {
+teamRouter.post('/team/:id/edit', checkTeamOwner, (req, res) => {
   models.team.findById(req.params.id).then((team) => {
     team.update({
       teamName: req.body.teamName,
