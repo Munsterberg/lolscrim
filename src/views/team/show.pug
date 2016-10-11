@@ -8,5 +8,8 @@ block content
   p= team.memberThree
   p= team.memberFour
   p= team.memberFive
-  a(href='/team/' + team.id + '/edit') Edit Team
-  a(href='/team/' + team.id + '/invite') Add Members
+  if user && user.teamId === team.id
+    a(href='/team/' + team.id + '/edit') Edit Team
+    a(href='/team/' + team.id + '/invite') Add Members
+  else
+    a(href='/') Request to Join
