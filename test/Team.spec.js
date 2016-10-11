@@ -49,6 +49,17 @@ describe('Team spec while not authenticated', () => {
         });
     });
   });
+  describe('GET /team/:id/edit', () => {
+    it('should not be able to view edit view', (done) => {
+      request(app)
+        .get('/team/1/edit')
+        .end((err, res) => {
+          expect(res.statusCode).to.equal(401);
+          expect(res.text).to.contain('You must be logged in and the Team Captain');
+          done();
+        });
+    });
+  });
 });
 
 describe('Team spec while authenticated', () => {

@@ -17,13 +17,15 @@ function checkTeamOwner(req, res, next) {
       if (res.locals.user.username === team.teamCaptain) {
         next();
       } else {
-        res.status(401).send({error: 'You are not the captain of this team!'});
+        res.status(403).send({error: 'You are not the captain of this team!'});
       }
     }).catch((e) => {
       if (e) {
         res.send(e);
       }
     });
+  } else {
+    res.status(401).send({error: 'You must be logged in and the Team Captain!'});
   }
 }
 
