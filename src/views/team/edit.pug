@@ -1,0 +1,21 @@
+extends ../layout
+
+block content
+  h1 Edit #{team.teamName}
+  .col-md-6
+    form(method='post' action='/team/' + team.id + '/edit')
+      .form-group
+        label(for='teamName') Team name
+        input#teamName.form-control(type='text', value=team.teamName, name='teamName')
+      label.radio-inline
+        input(type='radio', name='teamRegion', value='na')
+        | NA
+      label.radio-inline
+        input(type='radio', name='teamRegion', value='euw')
+        | EUW
+      label.radio-inline
+        input(type='radio', name='teamRegion', value='br')
+        | BR
+      br
+      br
+      button.btn.btn-default(type='submit') Update

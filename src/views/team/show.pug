@@ -1,0 +1,15 @@
+extends ../layout
+
+block content
+  h1= team.teamName
+  h2= team.teamRegion
+  p= team.teamCaptain
+  p= team.memberTwo
+  p= team.memberThree
+  p= team.memberFour
+  p= team.memberFive
+  if user && user.teamId === team.id
+    a(href='/team/' + team.id + '/edit') Edit Team
+    a(href='/team/' + team.id + '/invite') Add Members
+  else
+    a(href='/') Request to Join

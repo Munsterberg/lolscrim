@@ -47,5 +47,6 @@ public/bundle.js
 test/helpers/.env.test
 /db/
 /src/config.js
+/src/config/
 .DS_Store
 todo.txt

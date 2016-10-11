@@ -2,20 +2,20 @@ import passport from 'passport';
 import {Strategy as LocalStrategy} from 'passport-local';
 import bcrypt from 'bcryptjs';
 
-import User from '../models/user';
+import models from '../models';
 
 passport.serializeUser((user, done) => {
   done(null, user.id);
 });
 
 passport.deserializeUser((id, done) => {
-  User.findById(id).then((user) => {
+  models.user.findById(id).then((user) => {
     done(null, user);
   }).catch(err => done(err, null));
 });
 
 passport.use(new LocalStrategy((username, password, done) => {
-  User.findOne({where: {username: username.toLowerCase()}}).then((user) => {
+  models.user.findOne({where: {username: username.toLowerCase()}}).then((user) => {
     if (!user) {
       return done(null, false);
     }

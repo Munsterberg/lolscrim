@@ -1,0 +1,9 @@
+extends ../layout
+
+block content
+  h1 Search for Player
+  form(method='get', action='/team/' + team.id + '/invite')
+    input(type='text', placeholder='Bjerg', name='playerSearch')
+    br
+    br
+    button.btn.btn-default(type='submit') Search
