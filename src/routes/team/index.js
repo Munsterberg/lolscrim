@@ -57,6 +57,22 @@ teamRouter.get('/team/:id/edit', (req, res) => {
   });
 });
 
+teamRouter.post('/team/:id/edit', (req, res) => {
+  models.team.findById(req.params.id).then((team) => {
+    team.update({
+      teamName: req.body.teamName,
+      teamRegion: req.body.teamRegion,
+    })
+    .then(() => {
+      res.redirect(`/team/${req.params.id}`);
+    });
+  }).catch((e) => {
+    if (e) {
+      res.send(e);
+    }
+  });
+});
+
 teamRouter.get('/team/:id/invite', (req, res) => {
   if (req.query.playerSearch) {
     models.user.find({where: {username: req.query.playerSearch.toLowerCase()}}).then((user) => {
